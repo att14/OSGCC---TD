@@ -16,12 +16,7 @@ class Grid {
     img.onload = (e) {
       ctx.drawImage(img, 0, 0, 750, 750);
     };
-   /* 
-    audio = doc.createElement('audio');
-    audio.loop = true;
-    audio.src = 'audio/background.mp3';
-    audio.autoplay = true;
-    */
+   
     //generate map
     for (int i = 0; i < Constants.SIZE; i++) {
       cells.add(new List<GridElement>());
