@@ -13,7 +13,7 @@ class Enemy {
   CanvasRenderingContext2D ctx;
   
   Enemy (this.x, this.y, this.sight, this.speed, this.damage, this.health, this.size){
-    castle = (750 *.73).floor();
+    castle = (750 *.75).floor();
     hit = false;
     HTMLDocument doc = window.document;
     canvas = doc.getElementById('canvas');
@@ -22,7 +22,10 @@ class Enemy {
     img = doc.createElement('img');
     img.src = 'images/monsters/blob.png';
     img.onload = (e) {
-      ctx.drawImage(img, x, y);
+      if((y-img.height/2)< 0){
+        y = y + img.height/2;
+      }
+      ctx.drawImage(img, x-(img.width/2).floor(), y-(img.height/2).floor());
     };
   }
   
@@ -54,8 +57,10 @@ class Enemy {
   }
   
   int get life() => health;
-  
+  void set life(int newLife){
+    health = newLife;
+  }
   void draw() {
-    ctx.drawImage(img, x, y);
+    ctx.drawImage(img, x-(img.width/2).floor(), y-(img.height/2).floor());
   }
 }
