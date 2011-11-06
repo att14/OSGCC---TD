@@ -5,20 +5,14 @@ class Game{
   List<Enemy> enemies;
   Player p;
   Grid grid;
+  ToolBar shop;
   Game(){
     canvas = window.document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     grid = new Grid();
+    shop = new ToolBar();
     towers = new List<Tower>();
     enemies = new List<Enemy>();
-    Enemy r = new Enemy(54, 32, 10, 5, 100, 100, 10);
-    enemies.add(r);
-    Tower c = new Tower(100, 105, 100);
-    c.placeTower(150,150);
-    Tower a = new Tower(100, 105, 100);
-    a.placeTower(10,10);
-    Tower b = new Tower(100, 105, 100);
-    b.placeTower(50,50);
   
     p = new Player(10000,1000);
     window.webkitRequestAnimationFrame(drawFrame, canvas);

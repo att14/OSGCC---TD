@@ -42,8 +42,6 @@ class Enemy {
       if (x + size >= castle) {
         x = castle - size;
       }
-      print('x: $x');
-      print('distance: $distance');
       return true;
     }
   }
