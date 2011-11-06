@@ -32,7 +32,7 @@ class ToolBar {
   }
   
   void fillToolBar() {
-    drawImage('images/towers/copernicium.png');
+    ctx.drawImage('images/towers/copernicium.png');
   }
   
   void drawImage(String s) {
