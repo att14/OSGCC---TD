@@ -8,7 +8,6 @@ class Grid {
     HTMLDocument doc = window.document;
     canvas = doc.getElementById('canvas');
     ctx = canvas.getContext('2d');
-    double size = canvas.width / Constants.SIZE;
     
     //generate map
     for (int i = 0; i < Constants.SIZE; i++) {
@@ -16,40 +15,42 @@ class Grid {
     }
     
     for (int i = 0; i < Constants.SIZE; i++) {
-      cells[0].add(new GridElement(true, false, Constants.DOWN, false));
+      cells[0].add(new GridElement(0, i, true, false, Constants.DOWN, false));
     }
-    
-    for (int i = 0; i < Constants.SIZE - 4; i++) {
+    print((Constants.SIZE * .8).floor());
+    for (int i = 1; i < (Constants.SIZE * .8).floor(); i++) {
       for (int j = 0; j < Constants.SIZE; j++) {
-        cells[i].add(new GridElement(false, false, Constants.DOWN, false));
+        cells[i].add(new GridElement(i, j, false, false, Constants.DOWN, false));
       }
     }
     
-    for (int j = 0; j < Constants.SIZE; j++) {
-      cells[Constants.SIZE - 4].add(new GridElement(false, true, Constants.DOWN, false));
-    }
-    
-    for (int i = Constants.SIZE - 3; i < Constants.SIZE; i++) {
+    for (int i = (Constants.SIZE *.8).floor(); i < Constants.SIZE; i++) {
       for (int j = 0; j < Constants.SIZE; j++) {
-        cells[i].add(new GridElement(false, false, Constants.DOWN, true));
+        cells[i].add(new GridElement(i, j, false, false, Constants.DOWN, true));
       }
     }
     
     //draw map
+    draw();
+  }
+  
+  void draw() {
+    double size = canvas.width / Constants.SIZE;
+    
     for (int i = 0; i < Constants.SIZE; i++) {
       for (int j = 0; j < Constants.SIZE; j++) {
-        if (cells[i][j].start) {
+        if (cells[j][i].start) {
           ctx.setFillColor('green');
-          ctx.fillRect(size * i, size * j, size * i + size, size * j + size);
-        } else if(cells[i][j].end) {
+          ctx.fillRect(size * i, size * j, size, size);
+        } else if(cells[j][i].end) {
           ctx.setFillColor('red');
-          ctx.fillRect(size * i, size * j, size * i + size, size * j + size);
-        } else if(cells[i][j].castle) {
+          ctx.fillRect(size * i, size * j, size, size);
+        } else if(cells[j][i].castle) {
           ctx.setFillColor('gray');
-          ctx.fillRect(size * i, size * j, size * i + size, size * j + size);
+          ctx.fillRect(size * i, size * j, size, size);
         } else {
           ctx.setFillColor('black');
-          ctx.fillRect(size * i, size * j, size * i + size, size * j + size);
+          ctx.fillRect(size * i, size * j, size,  size);
         }
       }
     }
@@ -57,17 +58,21 @@ class Grid {
 }
 
 class GridElement {
+  final int X;
+  final int Y;
   final bool s; //start
   final bool e; //end
   final int direction;
   final bool c; //castle
   int t; //tower
   
-  GridElement(bool this.s, bool this.e, int this.direction, bool this.c) {
+  GridElement(int this.X, int this.Y, bool this.s, bool this.e, int this.direction, bool this.c) {
     t = Constants.TOWERLESS;
   }
   
   //getters
+  int get x() => X;
+  int get y() => Y;
   int get tower() => t;
   int  get dir() => direction;
   bool get start() => s;
@@ -79,7 +84,7 @@ class GridElement {
 }
 
 class Constants {
-  static final int SIZE = 10;
+  static final int SIZE = 150;
   static final UP = 1;
   static final DOWN = 2;
   static final LEFT = 3;
