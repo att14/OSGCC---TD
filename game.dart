@@ -2,6 +2,7 @@ class Game{
   
   HTMLCanvasElement canvas, shop;
   HTMLImageElement anim1, anim2, anim3;
+  HTMLAudioElement bloop, laser, baconarrow, goldfish;
   CanvasRenderingContext2D ctx, ctx2;
   int castle;
   ToolBar tool;
@@ -30,8 +31,8 @@ class Game{
     anim1.src = "images/towers/blast.png";
     anim2 = window.document.createElement('img');
     anim2.src = "images/towers/bacon.png";
-    //anim3 = window.document.getElementById('img');
-    //anim3.src = "images/towers/blast.png";
+    anim3 = window.document.createElement('img');
+    anim3.src = "images/towers/poured-lava.png";
     
     grid = new Grid();
     towers = new List<Tower>();
@@ -141,7 +142,7 @@ class Game{
         if(tower.fireRate){
           tower.fireRate = false;
           window.setTimeout(tower.fireRefresh,100);
-          lazer(tower.x, tower.y, a.x, a.y);
+          lazer(tower.x, tower.y, a.x, a.y, tower.swa);
           a.life-= tower.hit;
           if(a.life <= 0){
             enemies.removeRange(i, 1);
@@ -196,16 +197,28 @@ class Game{
 
     
   }
-  void lazer(int ax, int ay, int bx, int by){
+  void lazer(int ax, int ay, int bx, int by, int curr){
  
 
-    switch(en){
+    switch(curr){
     case 0:
-      ctx.drawImage(anim1, ax,ay-anim1.height/2);      
+      ctx.drawImage(anim1, ax-anim1.width,ay-anim1.height/2);      
       ctx.drawImage(anim1, bx-anim1.width/2,by-anim1.height/2);
+      baconarrow = window.document.createElement('audio');
+      baconarrow.src = 'sounds/pew.ogg';
+      baconarrow.autoplay = true;
+      break;
+    case 1:
+      ctx.drawImage(anim3, bx,by);
+      bloop = window.document.createElement('audio');
+      bloop.src = 'sounds/pew.ogg';
+      bloop.autoplay = true;
       break;
     case 3:
       ctx.drawImage(anim2, bx-anim2.width/2,by-anim2.height/2);
+      laser = window.document.createElement('audio');
+      laser.src = 'sounds/pew.ogg';
+      laser.autoplay = true;
       break;
     default:
       ctx.setFillColor('orange');
@@ -214,6 +227,9 @@ class Game{
       ctx.lineTo(bx, by);
       ctx.closePath();
       ctx.stroke();
+      goldfish = window.document.createElement('audio');
+      goldfish.src = 'sounds/pew.ogg';
+      goldfish.autoplay = true;
       break;
     };
 

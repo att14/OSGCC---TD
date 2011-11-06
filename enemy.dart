@@ -58,7 +58,7 @@ class Enemy {
       break;
     case 5:
       img.src = 'images/monsters/mickey.png';
-      sight = 20;
+      sight = 100;
       speed = 2;
       damage = 14;
       health = 80+kills*3;   

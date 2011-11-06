@@ -2,14 +2,14 @@ class Tower {
   HTMLCanvasElement canvas;
   HTMLImageElement img;
   CanvasRenderingContext2D ctx;
-  int sight, hit, cost, x, y;
+  int sight, hit, cost, x, y, swa;
   bool drawable, over, fireRate;
   static final int TAU = 2*Math.PI;
   Tower(this.cost, this.sight, this.hit, int swap){
     HTMLDocument doc = window.document;
     canvas = document.getElementById('canvas');
     img = doc.createElement('img');
-    
+    swa = swap;
     switch(swap){
     case 0:
       img.src = "images/towers/cannon.png";

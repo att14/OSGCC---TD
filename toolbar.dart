@@ -53,6 +53,7 @@ class ToolBar {
       ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);
     }
     else{
+      ctx.drawImage(ice, (shop.width-ice.width)/2, 600);
       ctx.drawImage(img, (shop.width-img1.width)/2 , 600);  
 
     }
