@@ -1,14 +1,16 @@
 class ToolBar {
   HTMLCanvasElement shop;
   HTMLImageElement background;
-  HTMLImageElement img;
+  HTMLImageElement img1;
   CanvasRenderingContext2D ctx;
   Player p;
-  
+  int wset;
+  bool copernicium;  
   ToolBar(this.p) {
+    copernicium = true;
     shop = window.document.getElementById('shop');
     ctx = shop.getContext('2d');
-    
+    wset = 10;
     background = window.document.createElement('img');
     background.src = 'images/paper-2.png';
     background.onload = (e) {
@@ -16,39 +18,44 @@ class ToolBar {
       ctx.font = "15pt Arial";
       ctx.setFillColor("red");
       ctx.fillText("${p.displayLife()}", 10, 30);
-      
-      fillToolBar();
+
     };
-    
-    shop.addEventListener("mousedown", (e){
-      mouseClick(e);
-    });
+    img1 = window.document.createElement('img');
+    img1.src = 'images/towers/copernicium.png';
+    img1.onload = (e){
+    //ctx.drawImage(img, (img.width)/2.floor() , 600);
+    ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);
+    };
   }
   void draw(){
     ctx.drawImage(background, 0, 0);
-    ctx.font = "15pt Arial";
-    ctx.setFillColor("red");
-    ctx.fillText("${p.displayLife()}", 10, 30);
-    
-    fillToolBar();
-  }
-  void mouseClick(MouseEvent e) {
-    if (e.offsetX >= ((shop.width-img.width)/2) && e.offsetX <= ((shop.width-img.width)/2 +img.width) && e.offsetY >= 600 && e.offsetY >= 600 - img.height) {
-      
+    if(copernicium){
+      ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);      
+    }
+    else{
+      ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);      
+      ctx.setFillColor("rgba(0,0,0,.3)");
+      ctx.fillRect((shop.width-img1.width)/2 , 600, img1.width, img1.height);
+     
+
     }
   }
   
-  void fillToolBar() {
-    drawImage('images/towers/copernicium.png');
+  bool mouseClick(MouseEvent e) {
+    if (copernicium && e.offsetX >= ((shop.width-img1.width)/2) && e.offsetX <= ((shop.width-img1.width)/2 +img1.width) && e.offsetY >= 600 && e.offsetY >= 600 - img1.height) {
+      return true; 
+    }
+    return false;
   }
   
   
-  
+
+  /*
   void drawImage(String s) {
     img = window.document.createElement('img');
     img.src = s;
     img.onload = (e) {
       ctx.drawImage(img, (shop.width-img.width)/2, 600);
     };
-  }
+  }*/
 }

@@ -1,5 +1,6 @@
 class Tower {
   HTMLCanvasElement canvas;
+  HTMLImageElement img;
   CanvasRenderingContext2D ctx;
   int sight, hit, cost, x, y;
   bool drawable, over, fireRate;
@@ -7,6 +8,9 @@ class Tower {
   Tower(this.cost, this.sight, this.hit){
     HTMLDocument doc = window.document;
     canvas = document.getElementById('canvas');
+    img = doc.createElement('img');
+    img.src = "images/towers/cannon.png";
+    
     ctx = canvas.getContext("2d");
     addEventHandlers();
     drawable = false;
@@ -21,14 +25,7 @@ class Tower {
       if(over){
         drawTowerOver("rgba(48, 107, 255, .6)", "rgb(0,0,0)");
       }
-      ctx.beginPath();
-      ctx.setLineWidth(2);
-      ctx.setFillColor("orange");
-      ctx.setStrokeColor("orange");
-      ctx.arc(x, y, 5, 0, TAU, false);
-      ctx.fill();
-      ctx.closePath();
-      ctx.stroke();      
+      ctx.drawImage(img, x-(img.width/2).floor(), y-(img.height/2).floor());
     }
 
   }
@@ -38,7 +35,7 @@ class Tower {
   void onMouseMove(MouseEvent e){
     int mouseX = e.offsetX;
     int mouseY = e.offsetY;
-    if(this.intersect(mouseX, mouseY)){
+    if(this.towerIntersect(mouseX, mouseY)){
       over = true;
     }
     else{
@@ -56,6 +53,9 @@ class Tower {
     ctx.stroke();    
   }
   bool intersect(int x_i, int y_i) => ((x_i-x)*(x_i-x) + (y_i-y)*(y_i-y)-sight*sight) <= 0;
+ 
+
+  bool towerIntersect(int x_i, int y_i) => (x_i >= x-(img.width)/2.floor() && x_i <= x+(img.width)/2.floor() && y_i >= y-(img.height)/2.floor()&& y_i <= y+(img.height)/2.floor());
   
   void placeTower(int ix,int iy){
     x = ix;

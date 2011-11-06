@@ -7,7 +7,7 @@ class Player {
 
   //getters + setters for life
   int get life() => _life;
-  void set life(newLife){
+  void set life(int newLife){
     _life = newLife;
   }
 ///////////////////////
@@ -25,10 +25,10 @@ class Player {
   String displayLife()=> "Life: $_life/$totalLife";
 //Returns false if you do not have enough money
   bool buyTower(int cost){
-    if((this._money-cost) >= 0){
+    if(_money-cost >= 0){
       this._money -= cost;
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
  }

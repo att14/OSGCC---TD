@@ -16,12 +16,12 @@ class Grid {
     img.onload = (e) {
       ctx.drawImage(img, 0, 0, 750, 750);
     };
-    
-//    audio = doc.createElement('audio');
-//    audio.loop = true;
-//    audio.src = 'audio/background.mp3';
-//    audio.autoplay = true;
-    
+   /* 
+    audio = doc.createElement('audio');
+    audio.loop = true;
+    audio.src = 'audio/background.mp3';
+    audio.autoplay = true;
+    */
     //generate map
     for (int i = 0; i < Constants.SIZE; i++) {
       cells.add(new List<GridElement>());
@@ -30,6 +30,7 @@ class Grid {
     for (int i = 0; i < Constants.SIZE; i++) {
       cells[0].add(new GridElement(0, i, true, false, Constants.DOWN, false));
     }
+    print((Constants.SIZE * .8).floor());
     for (int i = 1; i < (Constants.SIZE * .8).floor(); i++) {
       for (int j = 0; j < Constants.SIZE; j++) {
         cells[i].add(new GridElement(i, j, false, false, Constants.DOWN, false));
