@@ -1,7 +1,7 @@
 class ToolBar {
   HTMLCanvasElement shop;
   HTMLImageElement background;
-  HTMLImageElement img1;
+  HTMLImageElement img1, img;
   CanvasRenderingContext2D ctx;
   Player p;
   int wset;
@@ -12,6 +12,9 @@ class ToolBar {
     ctx = shop.getContext('2d');
     wset = 10;
     background = window.document.createElement('img');
+    img = window.document.createElement('img');
+    img.src = 'images/towers/copernicium-used.png';
+   
     background.src = 'images/paper-2.png';
     background.onload = (e) {
       ctx.drawImage(background, 0, 0);
@@ -33,10 +36,7 @@ class ToolBar {
       ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);      
     }
     else{
-      ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);      
-      ctx.setFillColor("rgba(0,0,0,.3)");
-      ctx.fillRect((shop.width-img1.width)/2 , 600, img1.width, img1.height);
-     
+      ctx.drawImage(img, (shop.width-img1.width)/2 , 600);      
 
     }
   }
