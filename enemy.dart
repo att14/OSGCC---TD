@@ -24,6 +24,8 @@ class Enemy {
     img.onload = (e) {
       if((y-img.height/2)< 0){
         y = y + img.height/2;
+      } else if((y+img.height/2)>750) {
+        y = y - img.height/2;
       }
       ctx.drawImage(img, x-(img.width/2).floor(), y-(img.height/2).floor());
     };
@@ -42,8 +44,6 @@ class Enemy {
       if (x + size >= castle) {
         x = castle - size;
       }
-      print('x: $x');
-      print('distance: $distance');
       return true;
     }
   }
