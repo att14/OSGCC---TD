@@ -15,21 +15,25 @@ class Tower {
       img.src = "images/towers/cannon.png";
       sight = 100;
       hit = 80;
+      cost = 10;
       break;
     case 1: 
       img.src = "images/towers/lava.png";
       sight = 50;
-      hit = 200;
+      hit = 400;
+      cost = 35;
       break;
     case 3: 
       img.src = "images/towers/bacon-arrow.png";
       sight = 400;
       hit = 900;
+      cost = 1000;
       break;
     case 2: 
       img.src = "images/towers/goldy.png";
       sight = 150;
       hit = 200;
+      cost = 100;
       break;
     }
     

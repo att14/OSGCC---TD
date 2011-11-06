@@ -67,7 +67,7 @@ class Game{
     });
   }
   void mouseClick(MouseEvent e){
-    if(e.offsetX >= castle && checkTower(e.offsetX, e.offsetY) && p.buyTower(11)){
+    if(e.offsetX >= castle && checkTower(e.offsetX, e.offsetY)){
       addTower(e.offsetX, e.offsetY);  
     }
   }
@@ -159,8 +159,11 @@ class Game{
   
   void addTower(int x, int y){
     Tower temp = new Tower(20, 105, 80, en);
+    bool canBuy = p.buyTower(temp.cost);
+    if (canBuy){
     temp.placeTower(x,y);
     towers.add(temp);
+    }
   }
   bool checkTower(int x, int y){
     for(final tower in towers){
