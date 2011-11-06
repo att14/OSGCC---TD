@@ -4,10 +4,13 @@ class Game{
   CanvasRenderingContext2D ctx, ctx2;
   int castle;
   ToolBar tool;
+  
+  ////////////////////////////////////////
   List<Tower> towers;
   List<Enemy> enemies;
   List<int> enemyLevelBarrier;
   List<double> probabilities;
+  //////////////////////////////////////
   int kills;
   Player p;
   Grid grid;
@@ -31,12 +34,13 @@ class Game{
     probabilities.add(.1);
     probabilities.add(.05);
     probabilities.add(.01);
+    probabilities.add(.08);
     enemyLevelBarrier.add(0);
     enemyLevelBarrier.add(100);
     enemyLevelBarrier.add(250);
     enemyLevelBarrier.add(200);
     enemyLevelBarrier.add(200);
-
+    enemyLevelBarrier.add(200);
     p = new Player(10000,100);
     tool = new ToolBar(p);
     window.setTimeout((){    generateEnemy(kills,((Math.random()*700).floor())); }, 10000);
@@ -133,7 +137,7 @@ class Game{
   }
   
   void addTower(int x, int y){
-    Tower temp = new Tower(100, 105, 100);
+    Tower temp = new Tower(20, 105, 80, 0);
     temp.placeTower(x,y);
     towers.add(temp);
   }

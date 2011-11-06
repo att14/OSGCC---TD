@@ -5,11 +5,19 @@ class Tower {
   int sight, hit, cost, x, y;
   bool drawable, over, fireRate;
   static final int TAU = 2*Math.PI;
-  Tower(this.cost, this.sight, this.hit){
+  Tower(this.cost, this.sight, this.hit, int swap){
     HTMLDocument doc = window.document;
     canvas = document.getElementById('canvas');
     img = doc.createElement('img');
-    img.src = "images/towers/cannon.png";
+    
+    switch(swap){
+    case 0:
+      img.src = "images/towers/cannon.png";
+      break;
+    case 1: 
+      img.src = "images/towers/lava.png";
+      break;
+    }
     
     ctx = canvas.getContext("2d");
     addEventHandlers();
