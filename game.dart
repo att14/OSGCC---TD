@@ -1,6 +1,7 @@
 class Game{
   
   HTMLCanvasElement canvas, shop;
+  HTMLImageElement anim1, anim2, anim3;
   CanvasRenderingContext2D ctx, ctx2;
   int castle;
   ToolBar tool;
@@ -15,6 +16,7 @@ class Game{
   Player p;
   Grid grid;
   bool gameover;
+  int en;
   Game(){
     //Canvas setting//////////////////////
     shop = window.document.getElementById('shop');
@@ -24,6 +26,13 @@ class Game{
     ///////////////////////////////////////////////
     kills = 0;
     //Array init//////////////////////////////
+    anim1 = window.document.createElement('img');
+    anim1.src = "images/towers/blast.png";
+    anim2 = window.document.createElement('img');
+    anim2.src = "images/towers/bacon.png";
+    //anim3 = window.document.getElementById('img');
+    //anim3.src = "images/towers/blast.png";
+    
     grid = new Grid();
     towers = new List<Tower>();
     enemies = new List<Enemy>();
@@ -46,7 +55,7 @@ class Game{
     window.setTimeout((){    generateEnemy(kills,((Math.random()*700).floor())); }, 10000);
     ////////////////////////////////////////
     
-    
+    en = 0;
     gameover = false;
     castle = (750 *.69).floor();
     window.webkitRequestAnimationFrame(drawFrame, canvas);
@@ -67,6 +76,18 @@ class Game{
       kills += enemies.length;
       tool.copernicium = false;
       enemies.removeRange(0, enemies.length-1);
+    }
+    else{
+      for(final til in tool.tools){
+        if(til.withinBox(e.offsetX, e.offsetY)){
+          til.selected = true;
+          en = til.type;
+          print(en);
+        }
+        else{
+          til.selected = false; 
+        }
+      }
     }
   }
   void drawFrame(int time){
@@ -137,7 +158,7 @@ class Game{
   }
   
   void addTower(int x, int y){
-    Tower temp = new Tower(20, 105, 80, 0);
+    Tower temp = new Tower(20, 105, 80, en);
     temp.placeTower(x,y);
     towers.add(temp);
   }
@@ -174,12 +195,25 @@ class Game{
   }
   void lazer(int ax, int ay, int bx, int by){
  
-    ctx.setFillColor('orange');
-    ctx.beginPath();
-    ctx.moveTo(ax, ay);
-    ctx.lineTo(bx, by);
-    ctx.closePath();
-    ctx.stroke();
+
+    switch(en){
+    case 0:
+      ctx.drawImage(anim1, ax,ay-anim1.height/2);      
+      ctx.drawImage(anim1, bx-anim1.width/2,by-anim1.height/2);
+      break;
+    case 3:
+      ctx.drawImage(anim2, bx-anim2.width/2,by-anim2.height/2);
+      break;
+    default:
+      ctx.setFillColor('orange');
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(bx, by);
+      ctx.closePath();
+      ctx.stroke();
+      break;
+    };
+
 
     
   }

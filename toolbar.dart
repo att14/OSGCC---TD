@@ -17,7 +17,10 @@ class ToolBar {
     img.src = 'images/towers/copernicium-used.png';
    
     tools = new List<Toolbox>();
-    tools.add(new Toolbox(0, 0, 10, 1, 190, "images/towers/lava.png"));
+    tools.add(new Toolbox(0, 80, 10, 1, 190, "images/towers/lava.png"));
+    tools.add(new Toolbox(0, 140, 15, 0, 190, "images/towers/cannon.png"));
+    tools.add(new Toolbox(0, 200, 10, 2, 190, "images/towers/goldy.png"));
+    tools.add(new Toolbox(0, 260, 15, 3, 190, "images/towers/bacon-arrow.png"));
     background.src = 'images/paper-2.png';
     background.onload = (e) {
       ctx.drawImage(background, 0, 0);
@@ -36,6 +39,9 @@ class ToolBar {
   void draw(){
     ctx.drawImage(background, 0, 0);
     tools[0].draw();
+    tools[1].draw();
+    tools[2].draw();
+    tools[3].draw();
     if(copernicium){
       ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);      
     }
