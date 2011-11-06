@@ -24,7 +24,14 @@ class ToolBar {
       mouseClick(e);
     });
   }
-  
+  void draw(){
+    ctx.drawImage(background, 0, 0);
+    ctx.font = "15pt Arial";
+    ctx.setFillColor("red");
+    ctx.fillText("${p.displayLife()}", 10, 30);
+    
+    fillToolBar();
+  }
   void mouseClick(MouseEvent e) {
     if (e.offsetX >= ((shop.width-img.width)/2) && e.offsetX <= ((shop.width-img.width)/2 +img.width) && e.offsetY >= 600 && e.offsetY >= 600 - img.height) {
       
@@ -34,6 +41,8 @@ class ToolBar {
   void fillToolBar() {
     drawImage('images/towers/copernicium.png');
   }
+  
+  
   
   void drawImage(String s) {
     img = window.document.createElement('img');

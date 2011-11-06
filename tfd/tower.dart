@@ -1,5 +1,6 @@
 class Tower {
   HTMLCanvasElement canvas;
+  HTMLImageElement img;
   CanvasRenderingContext2D ctx;
   int sight, hit, cost, x, y;
   bool drawable, over, fireRate;
@@ -7,6 +8,9 @@ class Tower {
   Tower(this.cost, this.sight, this.hit){
     HTMLDocument doc = window.document;
     canvas = document.getElementById('canvas');
+    img = doc.createElement('img');
+    img.src = "images/towers/cannon.png";
+    
     ctx = canvas.getContext("2d");
     addEventHandlers();
     drawable = false;
@@ -21,6 +25,8 @@ class Tower {
       if(over){
         drawTowerOver("rgba(48, 107, 255, .6)", "rgb(0,0,0)");
       }
+      ctx.drawImage(img, x-(img.width/2).floor(), y-(img.height/2).floor());
+      /*
       ctx.beginPath();
       ctx.setLineWidth(2);
       ctx.setFillColor("orange");
@@ -28,7 +34,7 @@ class Tower {
       ctx.arc(x, y, 5, 0, TAU, false);
       ctx.fill();
       ctx.closePath();
-      ctx.stroke();      
+      ctx.stroke();      */
     }
 
   }

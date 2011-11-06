@@ -1,7 +1,9 @@
 class Game{
-  HTMLCanvasElement canvas;
-  CanvasRenderingContext2D ctx;
+  
+  HTMLCanvasElement canvas, shop;
+  CanvasRenderingContext2D ctx, ctx2;
   int castle;
+  ToolBar tool;
   List<Tower> towers;
   List<Enemy> enemies;
   List<int> enemyLevelBarrier;
@@ -12,6 +14,8 @@ class Game{
   bool gameover;
   Game(){
     //Canvas setting//////////////////////
+    shop = window.document.getElementById('shop');
+    ctx2 = shop.getContext('2d');
     canvas = window.document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     ///////////////////////////////////////////////
@@ -30,11 +34,12 @@ class Game{
     enemyLevelBarrier.add(0);
     enemyLevelBarrier.add(100);
     enemyLevelBarrier.add(250);
-    enemyLevelBarrier.add(500);
-    enemyLevelBarrier.add(1000);
+    enemyLevelBarrier.add(200);
+    enemyLevelBarrier.add(200);
 
-    p = new Player(10000,1000);
-    window.setTimeout((){    generateEnemy(kills,((Math.random()*700).floor())); }, 1000);
+    p = new Player(10000,100);
+    tool = new ToolBar(p);
+    window.setTimeout((){    generateEnemy(kills,((Math.random()*700).floor())); }, 10000);
     ////////////////////////////////////////
     
     
@@ -44,15 +49,22 @@ class Game{
     canvas.addEventListener("mousedown", (e){
       mouseClick(e);
     });
-
+    shop.addEventListener("mousedown", (e){
+      mouseToolbar(e);
+    });
   }
   void mouseClick(MouseEvent e){
-    if(e.offsetX >= castle && checkTower(e.offsetX, e.offsetY)){
+    if(e.offsetX >= castle && checkTower(e.offsetX, e.offsetY) && p.buyTower(11)){
       addTower(e.offsetX, e.offsetY);  
-    
     }
   }
-  
+  void mouseToolbar(MouseEvent e){
+    if(tool.mouseClick(e)){
+      kills += enemies.length;
+      tool.copernicium = false;
+      enemies.removeRange(0, enemies.length-1);
+    }
+  }
   void drawFrame(int time){
     grid.draw();//Draw background
     
@@ -77,7 +89,11 @@ class Game{
     //Info update//////////////////
     ctx.font = "20pt Arial";
     ctx.setFillColor("red");
-    ctx.fillText("${p.displayLife()}, Kills: $kills", 300, 50);
+    tool.draw();
+    ctx2.fillText("${p.displayLife()}", 10, 30);
+    ctx2.fillText("Kills: $kills", 10, 50);
+    ctx2.fillText("Moneyz: ${p.money}", 10, 70);
+
     ///////////////////////////////
     
     
@@ -105,6 +121,7 @@ class Game{
           if(a.life <= 0){
             enemies.removeRange(i, 1);
             kills++;
+            p._money+=5;
             break;
          
           }          
@@ -129,13 +146,12 @@ class Game{
     return true;
   }
   void addEnemy(int i, num y){
-    Enemy temp = new Enemy(-30, y, i);
+    Enemy temp = new Enemy(-30, y, i, kills);
     enemies.add(temp); 
   }
   
   void generateEnemy(int killz, num y){
     int i = 0;
-    print("$kills");
 
     for(i = enemyLevelBarrier.length-1; i > 0; i--){
       if(killz >= enemyLevelBarrier[i]){

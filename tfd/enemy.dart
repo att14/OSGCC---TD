@@ -12,7 +12,7 @@ class Enemy {
   HTMLCanvasElement canvas;
   CanvasRenderingContext2D ctx;
   
-  Enemy (this.x, this.y, this.size){
+  Enemy (this.x, this.y, this.size,int kills){
     castle = (750 *.75).floor();
     hit = false;
     HTMLDocument doc = window.document;
@@ -26,26 +26,26 @@ class Enemy {
       sight = 10;
       speed = 3;
       damage = 10;
-      health = 201;
+      health = 201+kills*3;
       break;
     case 1:
       img.src = 'images/monsters/blart.png';
       sight = 50;
       speed = 2;
       damage = 5;
-      health = 101;
+      health = 101+kills*3;
       break;
     case 2:
       img.src = 'images/monsters/amoeba.png';
       sight = 10;
       speed = 1;
       damage = 15;
-      health = 901;
+      health = 901+kills*3;
       break;
     case 3:
       img.src = 'images/monsters/boom.png';
       sight = 10;
-      speed = 19;
+      speed = 19+kills/100;
       damage = 100;
       health = 10;       
       break;
@@ -54,7 +54,7 @@ class Enemy {
       sight = 10;
       speed = 19;
       damage = 100;
-      health = 10001;   
+      health = 10001+kills*3;   
       break;
     }
     img.onload = (e) {

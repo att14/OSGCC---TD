@@ -25,10 +25,10 @@ class Player {
   String displayLife()=> "Life: $_life/$totalLife";
 //Returns false if you do not have enough money
   bool buyTower(int cost){
-    if(_money-cost >= 0){
+    if((this._money-cost) >= 0){
       this._money -= cost;
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
  }

@@ -4,6 +4,7 @@
 #source('tower.dart');
 #source('game.dart');
 #source('enemy.dart');
+#source('toolbar.dart');
 
 
 
