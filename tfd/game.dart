@@ -1,0 +1,165 @@
+class Game{
+  HTMLCanvasElement canvas;
+  CanvasRenderingContext2D ctx;
+  int castle;
+  List<Tower> towers;
+  List<Enemy> enemies;
+  List<int> enemyLevelBarrier;
+  List<double> probabilities;
+  int kills;
+  Player p;
+  Grid grid;
+  bool gameover;
+  Game(){
+    //Canvas setting//////////////////////
+    canvas = window.document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    ///////////////////////////////////////////////
+    kills = 0;
+    //Array init//////////////////////////////
+    grid = new Grid();
+    towers = new List<Tower>();
+    enemies = new List<Enemy>();
+    enemyLevelBarrier = new List<int>();
+    probabilities = new List<double>();
+    probabilities.add(1.0);
+    probabilities.add(.3);
+    probabilities.add(.1);
+    probabilities.add(.05);
+    probabilities.add(.01);
+    enemyLevelBarrier.add(0);
+    enemyLevelBarrier.add(100);
+    enemyLevelBarrier.add(250);
+    enemyLevelBarrier.add(500);
+    enemyLevelBarrier.add(1000);
+
+    p = new Player(10000,1000);
+    window.setTimeout((){    generateEnemy(kills,((Math.random()*700).floor())); }, 1000);
+    ////////////////////////////////////////
+    
+    
+    gameover = false;
+    castle = (750 *.79).floor();
+    window.webkitRequestAnimationFrame(drawFrame, canvas);
+    canvas.addEventListener("mousedown", (e){
+      mouseClick(e);
+    });
+
+  }
+  void mouseClick(MouseEvent e){
+    if(e.offsetX >= castle && checkTower(e.offsetX, e.offsetY)){
+      addTower(e.offsetX, e.offsetY);  
+    
+    }
+  }
+  
+  void drawFrame(int time){
+    grid.draw();//Draw background
+    
+    //Ally delegation
+    for(final tower in towers){
+      tower.drawTower();
+    }
+    //////////////////
+    
+    //Enemy delegation
+    for(int i = 0; i < enemies.length; i++){
+      if(!enemies[i].move()){
+        gameover = p.gameOver();
+      }
+      p.life -= enemies[i].attack;
+ 
+      enemies[i].draw();
+      delegateEnemy(enemies[i], i);
+      }
+    ////////////////////
+    
+    //Info update//////////////////
+    ctx.font = "20pt Arial";
+    ctx.setFillColor("red");
+    ctx.fillText("${p.displayLife()}, Kills: $kills", 300, 50);
+    ///////////////////////////////
+    
+    
+    if(!gameover){
+      window.webkitRequestAnimationFrame(drawFrame, canvas);      
+    }
+    else{
+      grid.draw();
+      ctx.font = "20pt Arial";
+      ctx.setFillColor("red");
+      ctx.fillText("GAME OVER SKULL FUCKER", 200, 50);
+    }
+  }
+  
+  
+  //Check if tower can attack enemy
+  void delegateEnemy(Enemy a, int i){
+    for(final tower in towers){
+      if(tower.intersect(a.x, a.y)){
+        if(tower.fireRate){
+          tower.fireRate = false;
+          window.setTimeout(tower.fireRefresh,100);
+          lazer(tower.x, tower.y, a.x, a.y);
+          a.life-= tower.hit;
+          if(a.life <= 0){
+            enemies.removeRange(i, 1);
+            kills++;
+            break;
+         
+          }          
+          
+        }
+
+      }
+    }
+  }
+  
+  void addTower(int x, int y){
+    Tower temp = new Tower(100, 105, 100);
+    temp.placeTower(x,y);
+    towers.add(temp);
+  }
+  bool checkTower(int x, int y){
+    for(final tower in towers){
+      if(tower.towerIntersect(x,y)){
+        return false;
+      }
+    }
+    return true;
+  }
+  void addEnemy(int i, num y){
+    Enemy temp = new Enemy(-30, y, i);
+    enemies.add(temp); 
+  }
+  
+  void generateEnemy(int killz, num y){
+    int i = 0;
+    print("$kills");
+
+    for(i = enemyLevelBarrier.length-1; i > 0; i--){
+      if(killz >= enemyLevelBarrier[i]){
+        double percent = (probabilities[i]*100).floor();
+        if((Math.random()*100).floor() <= percent){
+          break;
+        }
+      }
+    }
+    addEnemy(i,y);
+    window.setTimeout((){    generateEnemy(kills,((Math.random()*700).floor())); }, 300);
+
+    
+  }
+  void lazer(int ax, int ay, int bx, int by){
+ 
+    ctx.setFillColor('orange');
+    ctx.beginPath();
+    ctx.moveTo(ax, ay);
+    ctx.lineTo(bx, by);
+    ctx.closePath();
+    ctx.stroke();
+
+    
+  }
+  
+}
