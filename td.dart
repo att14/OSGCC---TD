@@ -1,7 +1,7 @@
 #import('dart:dom');
 #source('player.dart');
 #source('tower.dart');
-//#resource('td.html');
+#source('board.dart');
 #resource('index.html');
 
 class td {
@@ -33,9 +33,7 @@ void main() {
   a.placeTower(10,10);
   Tower b = new Tower(100, 105, 100);
   b.placeTower(50,50);
-  if(a.intersect(b.x, b.y)){
-  }
-  new td().write("${a.intersect(b.x, b.y)}");
-  new td().write("${a.intersect(c.x, c.y)}");
-
+  new Grid();
+ // new td().write("${a.intersect(b.x, b.y)}");
+  //new td().write("${a.intersect(c.x, c.y)}");
 }

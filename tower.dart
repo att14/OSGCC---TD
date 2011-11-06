@@ -1,4 +1,3 @@
-
 class Tower {
   HTMLCanvasElement canvas;
   CanvasRenderingContext2D ctx;
