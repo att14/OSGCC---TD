@@ -56,7 +56,15 @@ class Enemy {
       damage = 100;
       health = 10001+kills*3;   
       break;
+    case 5:
+      img.src = 'images/monsters/mickey.png';
+      sight = 20;
+      speed = 2;
+      damage = 14;
+      health = 80+kills*3;   
+      break;
     }
+
     img.onload = (e) {
       if((y-img.height/2)< 0){
         y = y + img.height/2;
