@@ -2,6 +2,7 @@ class Title {
   HTMLCanvasElement canvas;
   CanvasRenderingContext2D ctx;
   HTMLImageElement img;
+  HTMLAudioElement audio;
   
   Title(){
     canvas = window.document.getElementById('canvas');
@@ -11,7 +12,10 @@ class Title {
     img.onload = (e){
       ctx.drawImage(img, 0 , 0);
       canvas.onmousedown = clickListener;
-
+      audio = window.document.createElement('audio');
+      audio.loop = true;
+      audio.src = 'sounds/background.mp3';
+      audio.autoplay = true;
     };
   }
 
