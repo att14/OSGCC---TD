@@ -9,12 +9,12 @@ class Game{
   Game(){
     canvas = window.document.getElementById('canvas');
     ctx = canvas.getContext('2d');
+    p = new Player(10000,1000);
     grid = new Grid();
-    shop = new ToolBar();
+    shop = new ToolBar(p);
     towers = new List<Tower>();
     enemies = new List<Enemy>();
   
-    p = new Player(10000,1000);
     window.webkitRequestAnimationFrame(drawFrame, canvas);
     canvas.addEventListener("mousedown", (e){
       mouseClick(e);
@@ -38,10 +38,7 @@ class Game{
       enemies[i].draw();
       delegateEnemy(enemies[i], i);
       }
-    addEnemy((Math.random()*300).floor());
-    ctx.font = "20pt Arial";
-    ctx.setFillColor("red");
-    ctx.fillText("${p.displayLife()}", 600, 50);
+    addEnemy((Math.random()*750).floor());
     window.webkitRequestAnimationFrame(drawFrame, canvas);
   }
   
