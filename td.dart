@@ -1,5 +1,7 @@
 #import('dart:dom');
 #source('player.dart');
+#source('tower.dart');
+#resource('td.html');
 
 class td {
 
