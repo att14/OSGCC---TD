@@ -1,7 +1,8 @@
 #import('dart:dom');
 #source('player.dart');
 #source('tower.dart');
-#resource('td.html');
+//#resource('td.html');
+#resource('index.html');
 
 class td {
 
@@ -23,5 +24,9 @@ class td {
 }
 
 void main() {
-  new td().run();
+  new Tower(100, 105, 100).placeTower(150,150);
+  new Tower(100, 105, 100).placeTower(10,10);
+  new Tower(100, 105, 100).placeTower(50,50);
+
+
 }
