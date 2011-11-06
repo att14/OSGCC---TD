@@ -1,7 +1,7 @@
 class ToolBar {
   HTMLCanvasElement shop;
   HTMLImageElement background;
-  HTMLImageElement img1, img;
+  HTMLImageElement img1, img, ice;
   List<Toolbox> tools;
   CanvasRenderingContext2D ctx;
   Player p;
@@ -15,6 +15,8 @@ class ToolBar {
     background = window.document.createElement('img');
     img = window.document.createElement('img');
     img.src = 'images/towers/copernicium-used.png';
+    ice = window.document.createElement('img');
+    ice.src = 'images/towers/ice.png';
    
     tools = new List<Toolbox>();
     tools.add(new Toolbox(0, 80, 10, 1, 190, "images/towers/lava.png"));
@@ -35,6 +37,10 @@ class ToolBar {
     //ctx.drawImage(img, (img.width)/2.floor() , 600);
     ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);
     };
+    
+    ice.onload = (e){
+      ctx.drawImage(ice, (shop.width-ice.width)/2, 650);
+    };
   }
   void draw(){
     ctx.drawImage(background, 0, 0);
@@ -43,10 +49,11 @@ class ToolBar {
     tools[2].draw();
     tools[3].draw();
     if(copernicium){
-      ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);      
+      ctx.drawImage(ice, (shop.width-ice.width)/2, 600);
+      ctx.drawImage(img1, (shop.width-img1.width)/2 , 600);
     }
     else{
-      ctx.drawImage(img, (shop.width-img1.width)/2 , 600);      
+      ctx.drawImage(img, (shop.width-img1.width)/2 , 600);  
 
     }
   }
