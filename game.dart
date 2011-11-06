@@ -71,6 +71,12 @@ class Game{
     if(e.offsetX >= castle && checkTower(e.offsetX, e.offsetY)){
       addTower(e.offsetX, e.offsetY);  
     }
+    if(gameover){
+      gameover = false;
+      towers.clear();
+      enemies.clear();
+      new Title();
+    }
   }
   void mouseToolbar(MouseEvent e){
     if(tool.mouseClick(e)){
@@ -118,7 +124,12 @@ class Game{
     tool.draw();
     ctx2.fillText("${p.displayLife()}", 10, 30);
     ctx2.fillText("Kills: $kills", 10, 50);
-    ctx2.fillText("Moneyz: ${p.money}", 10, 70);
+    ctx2.fillText("${p.displayMoney()}", 10, 70);
+
+    ctx2.fillText("30", 20, 120);
+    ctx2.fillText("10", 20, 180);
+    ctx2.fillText("100", 20, 240);
+    ctx2.fillText("1000", 20, 300);
 
     ///////////////////////////////
     
