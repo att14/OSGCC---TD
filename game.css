@@ -1,11 +1,40 @@
 @charset "utf-8";
 
 #container{
-	background-color: #000;
-	width: 700px;
+	position: absolute;
+	left: 50%;
+	top: 40%;
+	margin-left: -375px;
+	margin-top: -250px;
+	width: 750px;
 	height: 500px;
-	margin: 0 auto;
+	background-image: url(images/intro.png);
 }
 
+#boss{
+	position: absolute;
+	top: 100px;
+	left: 100px;
+}
 
+#enemy{
+	position: absolute;
+	top: 200px;
+	left: 100px;
+}
 
+#lava{
+	position: absolute;
+	top: 50px;
+	right: 95px;
+}
+
+#menu{
+	width: 750px;
+	height: 200px;
+	background-image: url(images/paper-2.png);
+	position: absolute;
+	left: 50%;
+	margin-left: -375px;
+	bottom: 50px;
+}
