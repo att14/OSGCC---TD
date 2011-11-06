@@ -2,7 +2,7 @@ class Tower {
   HTMLCanvasElement canvas;
   CanvasRenderingContext2D ctx;
   int sight, hit, cost, x, y;
-  bool drawable, over;
+  bool drawable, over, fireRate;
   static final int TAU = 2*Math.PI;
   Tower(this.cost, this.sight, this.hit){
     HTMLDocument doc = window.document;
@@ -10,14 +10,17 @@ class Tower {
     ctx = canvas.getContext("2d");
     addEventHandlers();
     drawable = false;
+    fireRate = true;
   }
   
   void addEventHandlers(){
     canvas.addEventListener("mousemove", this.onMouseMove, true);
-    
   }
   void drawTower(){
     if(drawable){
+      if(over){
+        drawTowerOver("rgba(48, 107, 255, .6)", "rgb(0,0,0)");
+      }
       ctx.beginPath();
       ctx.setLineWidth(2);
       ctx.setFillColor("orange");
@@ -29,22 +32,18 @@ class Tower {
     }
 
   }
+  void fireRefresh(){
+    fireRate = true;
+  }
   void onMouseMove(MouseEvent e){
     int mouseX = e.offsetX;
     int mouseY = e.offsetY;
     if(this.intersect(mouseX, mouseY)){
-      this.drawTowerOver("rgb(255,255,255)","rgb(255,255,255)");
-      this.drawTowerOver("rgba(192,202,85,.9)", "rgb(0,0,0)");
-      this.drawTower();
-
+      over = true;
     }
     else{
-      this.drawTowerOver("rgb(255,255,255)", "rgb(255,255,255)");
-      this.drawTower();      
+      over = false;
     }
-    HTMLDocument doc = window.document;
-    HTMLDivElement a = doc.getElementById("mouseLoc");
-    a.innerHTML = "$mouseX, $mouseY, $x, $y";
   }
   void drawTowerOver(String color, String color2){
     ctx.beginPath();
@@ -62,7 +61,7 @@ class Tower {
     x = ix;
     y = iy;
     drawable = true;
-    drawTower();
+    //drawTower();
   }
   
   
