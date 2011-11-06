@@ -1,6 +1,8 @@
 class Grid {
   List<List<GridElement>> cells;
   HTMLCanvasElement canvas;
+  HTMLImageElement img;
+  HTMLAudioElement audio;
   CanvasRenderingContext2D ctx;
   
   Grid() {
@@ -8,6 +10,17 @@ class Grid {
     HTMLDocument doc = window.document;
     canvas = doc.getElementById('canvas');
     ctx = canvas.getContext('2d');
+    
+    img = doc.createElement('img');
+    img.src = 'images/background.png';
+    img.onload = (e) {
+      ctx.drawImage(img, 0, 0, 750, 750);
+    };
+    
+    audio = doc.createElement('audio');
+    audio.loop = true;
+    audio.src = 'audio/background.mp3';
+    audio.autoplay = true;
     
     //generate map
     for (int i = 0; i < Constants.SIZE; i++) {
@@ -35,25 +48,7 @@ class Grid {
   }
   
   void draw() {
-    double size = canvas.width / Constants.SIZE;
-    
-    for (int i = 0; i < Constants.SIZE; i++) {
-      for (int j = 0; j < Constants.SIZE; j++) {
-        if (cells[j][i].start) {
-          ctx.setFillColor('green');
-          ctx.fillRect(size * i, size * j, size, size);
-        } else if(cells[j][i].end) {
-          ctx.setFillColor('red');
-          ctx.fillRect(size * i, size * j, size, size);
-        } else if(cells[j][i].castle) {
-          ctx.setFillColor('gray');
-          ctx.fillRect(size * i, size * j, size, size);
-        } else {
-          ctx.setFillColor('black');
-          ctx.fillRect(size * i, size * j, size,  size);
-        }
-      }
-    }
+      ctx.drawImage(img, 0, 0, 750, 750);
   }
 }
 
