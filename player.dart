@@ -20,7 +20,7 @@ class Player {
    }
   int get money()=> _money;
 
-  bool gameOver() => life < 0;
+  bool gameOver() => life <= 0;
   String displayMoney() => "Money: $_money";
   String displayLife()=> "Life: $_life/$totalLife";
 //Returns false if you do not have enough money
